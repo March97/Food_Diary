@@ -40,5 +40,12 @@
     <string name="meal_add_protein">Protein [g]</string>
     <string name="meal_add_fat">Fat [g]</string>
 
+    <string name="meal_date_tv"> "   Date: "</string>
+    <string name="meal_breakfast_tv"> "   Breakfast: "</string>
+    <string name="meal_lunch_tv"> "   Lunch: "</string>
+    <string name="meal_dinner_tv"> "   Dinner: "</string>
+    <string name="meal_snacks_tv"> "   Snacks: "</string>
+    <string name="meal_calories_tv"> "   Suma kalorii: "</string>
+
 
 </resources>
