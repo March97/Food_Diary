@@ -14,7 +14,6 @@
         android:text="@string/meal_date_tv"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/meal_breakfast_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +27,6 @@
         android:text="@string/meal_breakfast_tv"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/meal_breakfast_lv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meal_date_tv" />
@@ -36,7 +34,7 @@
     <ListView
         android:id="@+id/meal_breakfast_lv"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/meal_lunch_tv"
         app:layout_constraintStart_toStartOf="@+id/meal_lunch_tv"
@@ -51,7 +49,6 @@
         android:textColor="@color/colorAccent"
         android:background="@color/colorPrimary"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/meal_lunch_lv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meal_breakfast_lv" />
@@ -59,7 +56,7 @@
     <ListView
         android:id="@+id/meal_lunch_lv"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/meal_dinner_tv"
         app:layout_constraintStart_toStartOf="@+id/meal_dinner_tv"
@@ -74,7 +71,6 @@
         android:textColor="@color/colorAccent"
         android:background="@color/colorPrimary"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/meal_dinner_lv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meal_lunch_lv" />
@@ -82,7 +78,7 @@
     <ListView
         android:id="@+id/meal_dinner_lv"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/meal_snacks_tv"
         app:layout_constraintStart_toStartOf="@+id/meal_snacks_tv"
@@ -97,7 +93,6 @@
         android:textColor="@color/colorAccent"
         android:background="@color/colorPrimary"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/meal_snacks_lv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meal_dinner_lv" />
@@ -105,9 +100,7 @@
     <ListView
         android:id="@+id/meal_snacks_lv"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/meal_sum_tv"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/meal_sum_tv"
         app:layout_constraintTop_toBottomOf="@+id/meal_snacks_tv" />
 
