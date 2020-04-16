@@ -16,62 +16,48 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
 
-<!--        <TextView-->
-<!--            android:id="@+id/textView"-->
-<!--            android:layout_width="fill_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:text="@string/biodata"-->
-<!--            android:textSize="20dp"-->
-<!--            android:textColor="@color/white" />-->
+        <TextView
+            android:id="@+id/biodata_add_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/biodata_add_title"
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/date"-->
-<!--            android:layout_width="fill_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:hint="@string/hint_date"-->
-<!--            android:inputType="date"-->
-<!--            android:padding="13dp"-->
-<!--            android:singleLine="true"-->
-<!--            android:textColor="@color/input_login"-->
-<!--            android:textSize="13dp"-->
-<!--            android:textColorHint="@color/input_login_hint" />-->
+        <TextView
+            android:id="@+id/biodata_add_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/biodata_hint_date"
+            android:inputType="date"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp"
+            android:textColorHint="@color/colorGrey" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/mass"-->
-<!--            android:layout_width="fill_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:hint="@string/hint_mass"-->
-<!--            android:inputType="date"-->
-<!--            android:padding="10dp"-->
-<!--            android:singleLine="true"-->
-<!--            android:textColor="@color/input_login"-->
-<!--            android:textColorHint="@color/input_login_hint" />-->
+        <EditText
+            android:id="@+id/biodata_add_mass"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/biodata_hint_mass"
+            android:inputType="number"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="18sp"
+            android:textColor="@color/colorGrey"
+            android:textColorHint="@color/colorGrey" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/height"-->
-<!--            android:layout_width="fill_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:hint="@string/hint_height"-->
-<!--            android:inputType="date"-->
-<!--            android:padding="10dp"-->
-<!--            android:singleLine="true"-->
-<!--            android:textColor="@color/input_login"-->
-<!--            android:textColorHint="@color/input_login_hint" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/bioOk"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:layout_marginHorizontal="10dp"-->
-<!--            android:text="Ok" />-->
+        <Button
+            android:id="@+id/biodata_add_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/biodata_add_button" />
 
     </LinearLayout>
 

@@ -18,5 +18,27 @@
     <string name="biodata_mass">80kg</string>
     <string name="biodata_id">1</string>
     <string name="biodata_bmi">BMI: 25.0</string>
+    <string name="biodata_add_title">Insert your biodata:</string>
+    <string name="biodata_hint_date">Date</string>
+    <string name="biodata_hint_height">Height [cm]</string>
+    <string name="biodata_hint_mass">Mass [kg]</string>
+    <string name="biodata_add_button">OK</string>
+
+    <string name="meal_id">1</string>
+    <string name="meal_name">Nazwa</string>
+    <string name="meal_energy">325</string>
+    <string name="meal_protein">65</string>
+    <string name="meal_fat">54</string>
+    <string name="meal_carb">120</string>
+
+    <string name="meal_add_title">Insert your meal data:</string>
+    <string name="meal_add_name">Name</string>
+    <string name="meal_add_mass">Mass of portion</string>
+    <string name="meal_add_portions">Amount of portions</string>
+    <string name="meal_add_energy">Energy of portion [kcal]</string>
+    <string name="meal_add_carb">Carbohydrates [g]</string>
+    <string name="meal_add_protein">Protein [g]</string>
+    <string name="meal_add_fat">Fat [g]</string>
+
 
 </resources>

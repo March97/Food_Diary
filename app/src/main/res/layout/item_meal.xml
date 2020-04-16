@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="8dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/meal_id_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/meal_id"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/meal_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/meal_id_tv"
+            android:maxLines="1"/>
+
+        <TextView
+            android:id="@+id/meal_energy_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_energy"
+            android:layout_alignParentRight="true"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:layout_below="@id/meal_name_tv"/>
+
+        <TextView
+            android:id="@+id/meal_protein_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_protein"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:layout_below="@id/meal_id_tv"/>
+
+        <TextView
+            android:id="@+id/meal_fat_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_fat"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:layout_below="@id/meal_id_tv"
+            android:layout_marginLeft="90dp"/>
+
+        <TextView
+            android:id="@+id/meal_carb_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_carb"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:layout_below="@id/meal_id_tv"
+            android:layout_marginLeft="180dp" />
+
+    </RelativeLayout>
+</LinearLayout>
