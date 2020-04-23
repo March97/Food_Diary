@@ -7,20 +7,17 @@ import androidx.room.PrimaryKey;
 public class Biodata {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private int id;
     private String date;
-    private Integer mass;
-    private Integer height;
-    private Double bmi;
+    private int mass;
+    private int height;
     private String email;
 
-    public Biodata(Integer id, String date, Integer mass, Integer height, String email) {
-        this.id = id;
+    public Biodata(String date, int mass, int height, String email) {
         this.date = date;
         this.mass = mass;
         this.height = height;
         this.email = email;
-        this.bmi = Double.valueOf(mass / (height * height) / 10000);
     }
     public Integer getId() {
         return id;
@@ -62,11 +59,4 @@ public class Biodata {
         this.email = email;
     }
 
-    public Double getBmi() {
-        return bmi;
-    }
-
-    public void setBmi(Double bmi) {
-        this.bmi = bmi;
-    }
 }

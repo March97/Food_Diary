@@ -18,12 +18,12 @@ public class BiodataRepository {
         allBiodata = biodataDao.getAll();
     }
 
-    public void insert(Biodata Biodata) {
-        new InsertBiodataAsyncTask(biodataDao).execute(Biodata);
+    public void insert(Biodata biodata) {
+        new InsertBiodataAsyncTask(biodataDao).execute(biodata);
     }
 
-    public void update(Biodata Biodata) {
-        new UpdateBiodataAsyncTask(biodataDao).execute(Biodata);
+    public void update(Biodata biodata) {
+        new UpdateBiodataAsyncTask(biodataDao).execute(biodata);
 
     }
 
@@ -46,8 +46,8 @@ public class BiodataRepository {
         }
 
         @Override
-        protected Void doInBackground(Biodata... Biodatas) {
-            biodataDao.insert(Biodatas[0]);
+        protected Void doInBackground(Biodata... biodata) {
+            biodataDao.insert(biodata[0]);
             return null;
         }
     }
@@ -59,8 +59,8 @@ public class BiodataRepository {
         }
 
         @Override
-        protected Void doInBackground(Biodata... Biodatas) {
-            biodataDao.update(Biodatas[0]);
+        protected Void doInBackground(Biodata... biodata) {
+            biodataDao.update(biodata[0]);
             return null;
         }
     }
@@ -72,8 +72,8 @@ public class BiodataRepository {
         }
 
         @Override
-        protected Void doInBackground(Biodata... Biodatas) {
-            biodataDao.delete(Biodatas[0]);
+        protected Void doInBackground(Biodata... biodata) {
+            biodataDao.delete(biodata[0]);
             return null;
         }
     }

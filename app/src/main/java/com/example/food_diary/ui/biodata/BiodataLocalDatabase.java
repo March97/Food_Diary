@@ -44,9 +44,9 @@ public abstract class BiodataLocalDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            biodataDao.insert(new Biodata(1, "12.12.1212", 3, 4, "email"));
-            biodataDao.insert(new Biodata(1, "12.12.1212", 3, 4, "email"));
-            biodataDao.insert(new Biodata(1, "12.12.1212", 3, 4, "email"));
+            biodataDao.insert(new Biodata("12.12.1212", 90, 180, "email"));
+            biodataDao.insert(new Biodata("12.12.1212", 80, 175, "email"));
+            biodataDao.insert(new Biodata("12.12.1212", 70, 170, "email"));
             return null;
         }
     }

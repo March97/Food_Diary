@@ -24,7 +24,7 @@ public interface BiodataDao {
     @Query("DELETE FROM biodata_table")
     void deleteAll();
 
-    void get(Biodata biodata);
+    //void get(Biodata biodata);
 
     @Query("SELECT * FROM biodata_table ORDER BY id DESC")
     LiveData<List<Biodata>> getAll();
