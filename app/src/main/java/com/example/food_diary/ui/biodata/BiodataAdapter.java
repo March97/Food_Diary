@@ -31,7 +31,7 @@ public class BiodataAdapter extends RecyclerView.Adapter<BiodataAdapter.BiodataH
         Biodata currentBiodata = biodata.get(position);
         holder.id_tv.setText(String.valueOf(currentBiodata.getId()));
         holder.date_tv.setText(currentBiodata.getDate());
-        holder.mass_tv.setText(String.valueOf(currentBiodata.getMass()) + "kg");
+        holder.mass_tv.setText(currentBiodata.getMass() + "kg");
         holder.bmi_tv.setText(String.valueOf(bmiCalculate(currentBiodata.getMass(), currentBiodata.getHeight())));
     }
 

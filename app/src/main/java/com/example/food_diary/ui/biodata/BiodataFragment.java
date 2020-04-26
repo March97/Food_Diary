@@ -1,8 +1,6 @@
 package com.example.food_diary.ui.biodata;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,35 +26,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class BiodataFragment extends Fragment {
 
-//    private BiodataViewModel biodataViewModel;
-//
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View root = inflater.inflate(R.layout.fragment_biodata_list, container, false);
-//
-//        biodataViewModel = ViewModelProviders.of(this).get(BiodataViewModel.class);
-//
-//        RecyclerView recyclerView = root.findViewById(R.id.biodata_recyclerview);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setHasFixedSize(true);
-//
-//        final BiodataAdapter adapter = new BiodataAdapter();
-//        recyclerView.setAdapter(adapter);
-//
-//        biodataViewModel.getAll().observe(this, new Observer<List<Biodata>>() {
-//            @Override
-//            public void onChanged(List<Biodata> biodata) {
-//                adapter.setBiodata(biodata);
-//                Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        return root;
-//    }
-
     public static final int ADD_BIODATA_REQUEST = 1;
     public static final int EDIT_BIODATA_REQUEST = 2;
+
+    private String email = "admin";
+    private int height = 150;
 
     private BiodataViewModel biodataViewModel;
     private ArrayList<Biodata> biodataList;
@@ -69,8 +43,8 @@ public class BiodataFragment extends Fragment {
         FloatingActionButton buttonAddOrder = root.findViewById(R.id.biodata_fab);
         buttonAddOrder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                Intent intent = new Intent(getContext(), AddbiodataActivity.class);
-//                startActivityForResult(intent, ADD_biodata_REQUEST);
+                Intent intent = new Intent(getContext(), BiodataAddActivity.class);
+                startActivityForResult(intent, ADD_BIODATA_REQUEST);
             }
         });
 
@@ -121,54 +95,48 @@ public class BiodataFragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
-
-
         adapter.setOnItemClickListener(new BiodataAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Biodata biodata) {
-                Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getContext(), AddbiodataActivity.class);
-//                intent.putExtra(AddbiodataActivity.EXTRA_ID, biodata.getId());
-//                intent.putExtra(AddbiodataActivity.EXTRA_NAME, biodata.getName());
-//                intent.putExtra(AddbiodataActivity.EXTRA_PRICE, biodata.getPrice());
-//                intent.putExtra(AddbiodataActivity.EXTRA_MASS, biodata.getMass());
-//                startActivityForResult(intent, EDIT_biodata_REQUEST);
+                Toast.makeText(getContext(), "Update biodata", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), BiodataAddActivity.class);
+                intent.putExtra(BiodataAddActivity.EXTRA_ID, biodata.getId());
+                intent.putExtra(BiodataAddActivity.EXTRA_MASS, biodata.getMass());
+                startActivityForResult(intent, EDIT_BIODATA_REQUEST);
             }
         });
 
         return root;
     }
 
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == ADD_biodata_REQUEST && resultCode == RESULT_OK) {
-//            String name = data.getStringExtra(AddbiodataActivity.EXTRA_NAME);
-//            int mass = data.getIntExtra(AddbiodataActivity.EXTRA_MASS, 1);
-//            double price = data.getDoubleExtra(AddbiodataActivity.EXTRA_PRICE, 1);
-//
-//            biodata biodata = new biodata(name, price, mass);
-//            biodataViewModel.insert(biodata);
-//            Toast.makeText(getContext(), "biodata saved", Toast.LENGTH_SHORT).show();
-//        } else if (requestCode == EDIT_biodata_REQUEST && resultCode == RESULT_OK) {
-//            int id = data.getIntExtra(AddbiodataActivity.EXTRA_ID, -1);
-//
-//            if (id == -1) {
-//                Toast.makeText(getContext(), "biodata can't be updated", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            String name = data.getStringExtra(AddbiodataActivity.EXTRA_NAME);
-//            int mass = data.getIntExtra(AddbiodataActivity.EXTRA_MASS, 1);
-//            double price = data.getDoubleExtra(AddbiodataActivity.EXTRA_PRICE, 1);
-//
-//            biodata biodata = new biodata(name, price, mass);
-//            biodata.setId(id);
-//            biodataViewModel.update(biodata);
-//
-//            Toast.makeText(getContext(), "biodata updated", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(getContext(), "biodata can't be saved", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_BIODATA_REQUEST && resultCode == RESULT_OK) {
+            String date = data.getStringExtra(BiodataAddActivity.EXTRA_DATE);
+            int mass = data.getIntExtra(BiodataAddActivity.EXTRA_MASS, 1);
+
+            Biodata biodata = new Biodata(date, mass, height, email);
+            biodataViewModel.insert(biodata);
+            Toast.makeText(getContext(), "Biodata saved", Toast.LENGTH_SHORT).show();
+        } else if (requestCode == EDIT_BIODATA_REQUEST && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(BiodataAddActivity.EXTRA_ID, -1);
+
+            if (id == -1) {
+                Toast.makeText(getContext(), "Biodata can't be updated", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String date = data.getStringExtra(BiodataAddActivity.EXTRA_DATE);
+            int mass = data.getIntExtra(BiodataAddActivity.EXTRA_MASS, 1);
+
+            Biodata biodata = new Biodata(date, mass, height, email);
+            biodata.setId(id);
+            biodataViewModel.update(biodata);
+
+            Toast.makeText(getContext(), "Biodata updated", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Biodata can't be saved", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
