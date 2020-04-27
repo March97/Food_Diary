@@ -139,7 +139,7 @@
             android:textColorHint="@color/colorGrey" />
 
         <Button
-            android:id="@+id/biodata_add_button"
+            android:id="@+id/meal_add_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/biodata_add_button" />

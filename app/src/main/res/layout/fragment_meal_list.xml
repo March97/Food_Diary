@@ -31,14 +31,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meal_date_tv" />
 
-    <ListView
-        android:id="@+id/meal_breakfast_lv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meal_breakfast_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/meal_lunch_tv"
         app:layout_constraintStart_toStartOf="@+id/meal_lunch_tv"
-        app:layout_constraintTop_toBottomOf="@+id/meal_breakfast_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/meal_breakfast_tv"
+        tools:listitem="@layout/item_meal"/>
 
     <TextView
         android:id="@+id/meal_lunch_tv"
@@ -51,16 +52,17 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meal_breakfast_lv" />
+        app:layout_constraintTop_toBottomOf="@+id/meal_breakfast_rv" />
 
-    <ListView
-        android:id="@+id/meal_lunch_lv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meal_lunch_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/meal_dinner_tv"
         app:layout_constraintStart_toStartOf="@+id/meal_dinner_tv"
-        app:layout_constraintTop_toBottomOf="@+id/meal_lunch_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/meal_lunch_tv"
+        tools:listitem="@layout/item_meal"/>
 
     <TextView
         android:id="@+id/meal_dinner_tv"
@@ -73,16 +75,17 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meal_lunch_lv" />
+        app:layout_constraintTop_toBottomOf="@+id/meal_lunch_rv" />
 
-    <ListView
-        android:id="@+id/meal_dinner_lv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meal_dinner_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/meal_snacks_tv"
         app:layout_constraintStart_toStartOf="@+id/meal_snacks_tv"
-        app:layout_constraintTop_toBottomOf="@+id/meal_dinner_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/meal_dinner_tv"
+        tools:listitem="@layout/item_meal"/>
 
     <TextView
         android:id="@+id/meal_snacks_tv"
@@ -95,14 +98,15 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meal_dinner_lv" />
+        app:layout_constraintTop_toBottomOf="@+id/meal_dinner_rv" />
 
-    <ListView
-        android:id="@+id/meal_snacks_lv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meal_snacks_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/meal_sum_tv"
-        app:layout_constraintTop_toBottomOf="@+id/meal_snacks_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/meal_snacks_tv"
+        tools:listitem="@layout/item_meal"/>
 
     <TextView
         android:id="@+id/meal_sum_tv"

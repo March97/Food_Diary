@@ -27,13 +27,13 @@ import java.util.Locale;
 public class BiodataAddActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID =
-            "com.example.bondyra.ui.dishes.EXTRA_ID";
+            "com.example.food_diary.ui.biodata.EXTRA_ID";
 
     public static final String EXTRA_MASS =
-            "com.example.bondyra.ui.dishes.EXTRA_MASS";
+            "com.example.food_diary.ui.biodata.EXTRA_MASS";
 
     public static final String EXTRA_DATE =
-            "com.example.bondyra.ui.dishes.EXTRA_PRICE";
+            "com.example.food_diary.ui.biodata.EXTRA_DATE";
 
     private EditText mass_et;
     private TextView date_tv;
