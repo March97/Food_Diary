@@ -1,10 +1,15 @@
 package com.example.food_diary.ui.meals;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,8 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.food_diary.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -33,30 +42,79 @@ public class MealFragment extends Fragment {
 
     private MealViewModel mealViewModel;
     private ArrayList<Meal> mealList;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
+    private TextView date_tv;
+    String date;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_meal_list, container, false);
+
+        date_tv = root.findViewById(R.id.meal_date_tv);
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        date = sdf.format(c);
+        date_tv.setText("   " + date);
+        date_tv.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(view.getContext(),
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        dateSetListener,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                //month += 1;
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month);
+                cal.set(Calendar.DATE, dayOfMonth);
+                Date dateCal = cal.getTime();
+                //Log.d(TAG, "onDateSet: " + year + "-" + month + "-" + dayOfMonth);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                date = sdf.format(dateCal);
+                date_tv.setText("   " + date);
+            }
+        };
+
         FloatingActionButton buttonAddOrder = root.findViewById(R.id.meal_fab);
         buttonAddOrder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MealAddActivity.class);
                 startActivityForResult(intent, ADD_MEAL_REQUEST);
+                intent.putExtra(MealAddActivity.EXTRA_DATE, date);
             }
         });
+
+
 
         RecyclerView breakfastRecyclerView = root.findViewById(R.id.meal_breakfast_rv);
         breakfastRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         breakfastRecyclerView.setHasFixedSize(true);
 
+        RecyclerView lunchRecyclerView = root.findViewById(R.id.meal_lunch_rv);
+        lunchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        lunchRecyclerView.setHasFixedSize(true);
+
         RecyclerView dinnerRecyclerView = root.findViewById(R.id.meal_dinner_rv);
         dinnerRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dinnerRecyclerView.setHasFixedSize(true);
 
-        RecyclerView lunchRecyclerView = root.findViewById(R.id.meal_lunch_rv);
-        lunchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        lunchRecyclerView.setHasFixedSize(true);
 
         RecyclerView snacksRecyclerView = root.findViewById(R.id.meal_snacks_rv);
         snacksRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -67,8 +125,8 @@ public class MealFragment extends Fragment {
         final MealAdapter dinnerAdapter= new MealAdapter();
         final MealAdapter snacksAdapter= new MealAdapter();
         breakfastRecyclerView.setAdapter(breakfastAdapter);
-        dinnerRecyclerView.setAdapter(lunchAdapter);
-        lunchRecyclerView.setAdapter(dinnerAdapter);
+        dinnerRecyclerView.setAdapter(dinnerAdapter);
+        lunchRecyclerView.setAdapter(lunchAdapter);
         snacksRecyclerView.setAdapter(snacksAdapter);
 
         mealViewModel = ViewModelProviders.of(this).get(MealViewModel.class);

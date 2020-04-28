@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -74,7 +75,13 @@ public class MealAddActivity extends AppCompatActivity {
         protein_et = findViewById(R.id.meal_add_protein);
         fat_et = findViewById(R.id.meal_add_fat);
         ok_btn = findViewById(R.id.meal_add_button);
+
         spinner = findViewById(R.id.meal_add_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.kind_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
 
         Intent intent = getIntent();
 
@@ -101,7 +108,10 @@ public class MealAddActivity extends AppCompatActivity {
     }
 
     private void saveMeal() {
+        Intent intent = getIntent();
         String name = name_et.getText().toString();
+        String kind = String.valueOf(spinner.getSelectedItem());
+        String date = intent.getStringExtra(EXTRA_DATE);
         int mass = Integer.valueOf(mass_et.getText().toString());
         int portions = Integer.valueOf(portions_et.getText().toString());
         int energy = Integer.valueOf(energy_et.getText().toString());
@@ -123,6 +133,8 @@ public class MealAddActivity extends AppCompatActivity {
         data.putExtra(EXTRA_CARBS, carb);
         data.putExtra(EXTRA_PROTEIN, protein);
         data.putExtra(EXTRA_FAT, fat);
+        data.putExtra(EXTRA_KIND, kind);
+        data.putExtra(EXTRA_DATE, date);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1) {

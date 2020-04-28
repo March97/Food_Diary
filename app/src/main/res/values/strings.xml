@@ -49,5 +49,13 @@
     <string name="meal_snacks_tv"> "   Snacks: "</string>
     <string name="meal_calories_tv"> "   Suma kalorii: "</string>
 
+    <string-array name="kind_array">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Snacks</item>
+    </string-array>
+
+
 
 </resources>

@@ -45,8 +45,8 @@ public abstract class MealLocalDatabase extends RoomDatabase{
         @Override
         protected Void doInBackground(Void... voids) {
             MealDao.insert(new Meal("email", "12.12.1212", "bigos", "Lunch", 120, 250, 30, 20, 20, 3));
-            MealDao.insert(new Meal("email", "12.12.1212", "galareta", "Lunch", 20, 600, 50, 40, 10, 1));
-            MealDao.insert(new Meal("email", "12.12.1212", "golabki", "Lunch", 180, 900, 60, 20, 60, 5));
+            MealDao.insert(new Meal("email", "12.12.1212", "galareta", "Breakfast", 20, 600, 50, 40, 10, 1));
+            MealDao.insert(new Meal("email", "12.12.1212", "golabki", "Dinner", 180, 900, 60, 20, 60, 5));
             return null;
         }
     }
