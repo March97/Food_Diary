@@ -51,12 +51,20 @@ public class MealFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_meal_list, container, false);
 
+        mealViewModel = ViewModelProviders.of(this).get(MealViewModel.class);
+
         date_tv = root.findViewById(R.id.meal_date_tv);
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         date = sdf.format(c);
         date_tv.setText("   " + date);
+//        mealViewModel.setDate(date);
+//        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPref.edit();
+//        editor.putString(getString(R.string.saved_date), date);
+//        editor.commit();
+
         date_tv.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -89,6 +97,11 @@ public class MealFragment extends Fragment {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 date = sdf.format(dateCal);
                 date_tv.setText("   " + date);
+//                mealViewModel.setDate(date);
+//                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPref.edit();
+//                editor.putString(getString(R.string.saved_date), date);
+//                editor.commit();
             }
         };
 
@@ -96,8 +109,8 @@ public class MealFragment extends Fragment {
         buttonAddOrder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MealAddActivity.class);
-                startActivityForResult(intent, ADD_MEAL_REQUEST);
                 intent.putExtra(MealAddActivity.EXTRA_DATE, date);
+                startActivityForResult(intent, ADD_MEAL_REQUEST);
             }
         });
 
@@ -129,7 +142,8 @@ public class MealFragment extends Fragment {
         lunchRecyclerView.setAdapter(lunchAdapter);
         snacksRecyclerView.setAdapter(snacksAdapter);
 
-        mealViewModel = ViewModelProviders.of(this).get(MealViewModel.class);
+
+
         mealViewModel.getBreakfast().observe(this, new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meal) {

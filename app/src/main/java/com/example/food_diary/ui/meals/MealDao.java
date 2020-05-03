@@ -31,6 +31,18 @@ public interface MealDao {
     @Query("SELECT * FROM meal_table ORDER BY id DESC")
     LiveData<List<Meal>> getAll();
 
+//    @Query("SELECT * FROM meal_table WHERE kind = 'Breakfast' AND date LIKE :date ORDER BY id DESC")
+//    LiveData<List<Meal>> getBreakfast(String date);
+//
+//    @Query("SELECT * FROM meal_table WHERE kind = 'Lunch' AND date LIKE :date ORDER BY id DESC")
+//    LiveData<List<Meal>> getLunch(String date);
+//
+//    @Query("SELECT * FROM meal_table WHERE kind = 'Dinner' AND date LIKE :date ORDER BY id DESC")
+//    LiveData<List<Meal>> getDinner(String date);
+//
+//    @Query("SELECT * FROM meal_table WHERE kind = 'Snacks' AND date LIKE :date ORDER BY id DESC")
+//    LiveData<List<Meal>> getSnacks(String date);
+
     @Query("SELECT * FROM meal_table WHERE kind = 'Breakfast' ORDER BY id DESC")
     LiveData<List<Meal>> getBreakfast();
 

@@ -60,6 +60,7 @@ public class MealAddActivity extends AppCompatActivity {
     private EditText protein_et;
     private EditText fat_et;
     private Button ok_btn;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,8 @@ public class MealAddActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+        date = intent.getStringExtra(EXTRA_DATE);
+        System.out.println(date);
 
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit meal");
@@ -108,10 +111,8 @@ public class MealAddActivity extends AppCompatActivity {
     }
 
     private void saveMeal() {
-        Intent intent = getIntent();
         String name = name_et.getText().toString();
         String kind = String.valueOf(spinner.getSelectedItem());
-        String date = intent.getStringExtra(EXTRA_DATE);
         int mass = Integer.valueOf(mass_et.getText().toString());
         int portions = Integer.valueOf(portions_et.getText().toString());
         int energy = Integer.valueOf(energy_et.getText().toString());

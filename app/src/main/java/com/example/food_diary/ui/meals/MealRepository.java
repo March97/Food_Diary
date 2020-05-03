@@ -1,9 +1,12 @@
 package com.example.food_diary.ui.meals;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ public class MealRepository {
     private LiveData<List<Meal>> lunch;
     private LiveData<List<Meal>> dinner;
     private LiveData<List<Meal>> snacks;
+    private MutableLiveData<String> date = new MutableLiveData<String>();
 
     public MealRepository(Application application) {
         MealLocalDatabase database = MealLocalDatabase.getInstance(application);
@@ -42,19 +46,31 @@ public class MealRepository {
         new MealRepository.DeleteallMealAsyncTask(mealDao).execute();
     }
 
+    public void setDate(String filter) {
+        date.setValue(filter);
+        breakfast = mealDao.getBreakfast();
+        lunch = mealDao.getLunch();
+        dinner = mealDao.getDinner();
+        snacks = mealDao.getSnacks();
+    }
+
     public LiveData<List<Meal>> getAll() {
         return  allMeal;
     }
     public LiveData<List<Meal>> getBreakfast() {
+        breakfast = mealDao.getBreakfast();
         return  breakfast;
     }
     public LiveData<List<Meal>> getLunch() {
+        lunch = mealDao.getLunch();
         return  lunch;
     }
     public LiveData<List<Meal>> getDinner() {
+        dinner = mealDao.getDinner();
         return  dinner;
     }
     public LiveData<List<Meal>> getSnacks() {
+        snacks = mealDao.getSnacks();
         return  snacks;
     }
 
