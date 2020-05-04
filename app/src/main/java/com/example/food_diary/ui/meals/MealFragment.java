@@ -48,7 +48,12 @@ public class MealFragment extends Fragment {
     private ArrayList<Meal> snacksList;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView date_tv;
+    private TextView macros_tv;
     String date;
+    private int energy;
+    private int carbs;
+    private int proteins;
+    private int fat;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +69,7 @@ public class MealFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         date = sdf.format(c);
 
+        macros_tv = root.findViewById(R.id.meal_sum_tv);
         date_tv = root.findViewById(R.id.meal_date_tv);
         date_tv.setText("   " + date);
 
@@ -107,6 +113,7 @@ public class MealFragment extends Fragment {
             public void onChanged(List<Meal> meal) {
                 mealList = (ArrayList) meal;
                 setAdapters();
+                calcMacros();
             }
 
             private void setAdapters() {
@@ -186,6 +193,7 @@ public class MealFragment extends Fragment {
                 lunchAdapter.setMeal(lunchList);
                 dinnerAdapter.setMeal(dinnerList);
                 snacksAdapter.setMeal(snacksList);
+                calcMacros();
             }
         };
 
@@ -374,5 +382,39 @@ public class MealFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), "Meal can't be saved", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void calcMacros() {
+        energy = 0;
+        proteins = 0;
+        fat = 0;
+        carbs = 0;
+
+        for (int i = 0; i < breakfastList.size(); i++) {
+            energy += breakfastList.get(i).getEnergy();
+            proteins += breakfastList.get(i).getProtein();
+            fat += breakfastList.get(i).getFat();
+            carbs += breakfastList.get(i).getCarbs();
+        }
+        for (int i = 0; i < lunchList.size(); i++) {
+            energy += lunchList.get(i).getEnergy();
+            proteins += lunchList.get(i).getProtein();
+            fat += lunchList.get(i).getFat();
+            carbs += lunchList.get(i).getCarbs();
+        }
+        for (int i = 0; i < dinnerList.size(); i++) {
+            energy += dinnerList.get(i).getEnergy();
+            proteins += dinnerList.get(i).getProtein();
+            fat += dinnerList.get(i).getFat();
+            carbs += dinnerList.get(i).getCarbs();
+        }
+        for (int i = 0; i < snacksList.size(); i++) {
+            energy += snacksList.get(i).getEnergy();
+            proteins += snacksList.get(i).getProtein();
+            fat += snacksList.get(i).getFat();
+            carbs += snacksList.get(i).getCarbs();
+        }
+
+        macros_tv.setText("   " + energy + " kcal       c: " + carbs + "g       p: " + proteins + "g        f: " + carbs + "g");
     }
 }
