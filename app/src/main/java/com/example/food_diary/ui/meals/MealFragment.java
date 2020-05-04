@@ -42,6 +42,10 @@ public class MealFragment extends Fragment {
 
     private MealViewModel mealViewModel;
     private ArrayList<Meal> mealList;
+    private ArrayList<Meal> breakfastList;
+    private ArrayList<Meal> lunchList;
+    private ArrayList<Meal> dinnerList;
+    private ArrayList<Meal> snacksList;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private TextView date_tv;
     String date;
@@ -50,60 +54,18 @@ public class MealFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_meal_list, container, false);
-
-        mealViewModel = ViewModelProviders.of(this).get(MealViewModel.class);
-
-        date_tv = root.findViewById(R.id.meal_date_tv);
+        mealList = new ArrayList<Meal>();
+        breakfastList = new ArrayList<Meal>();
+        lunchList = new ArrayList<Meal>();
+        dinnerList = new ArrayList<Meal>();
+        snacksList = new ArrayList<Meal>();
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         date = sdf.format(c);
+
+        date_tv = root.findViewById(R.id.meal_date_tv);
         date_tv.setText("   " + date);
-//        mealViewModel.setDate(date);
-//        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPref.edit();
-//        editor.putString(getString(R.string.saved_date), date);
-//        editor.commit();
-
-        date_tv.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(view.getContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                //month += 1;
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, year);
-                cal.set(Calendar.MONTH, month);
-                cal.set(Calendar.DATE, dayOfMonth);
-                Date dateCal = cal.getTime();
-                //Log.d(TAG, "onDateSet: " + year + "-" + month + "-" + dayOfMonth);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                date = sdf.format(dateCal);
-                date_tv.setText("   " + date);
-//                mealViewModel.setDate(date);
-//                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPref.edit();
-//                editor.putString(getString(R.string.saved_date), date);
-//                editor.commit();
-            }
-        };
 
         FloatingActionButton buttonAddOrder = root.findViewById(R.id.meal_fab);
         buttonAddOrder.setOnClickListener(new View.OnClickListener() {
@@ -113,8 +75,6 @@ public class MealFragment extends Fragment {
                 startActivityForResult(intent, ADD_MEAL_REQUEST);
             }
         });
-
-
 
         RecyclerView breakfastRecyclerView = root.findViewById(R.id.meal_breakfast_rv);
         breakfastRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -128,57 +88,106 @@ public class MealFragment extends Fragment {
         dinnerRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dinnerRecyclerView.setHasFixedSize(true);
 
-
         RecyclerView snacksRecyclerView = root.findViewById(R.id.meal_snacks_rv);
         snacksRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         snacksRecyclerView.setHasFixedSize(true);
 
-        final MealAdapter breakfastAdapter= new MealAdapter();
-        final MealAdapter lunchAdapter= new MealAdapter();
-        final MealAdapter dinnerAdapter= new MealAdapter();
-        final MealAdapter snacksAdapter= new MealAdapter();
+        final MealAdapter breakfastAdapter = new MealAdapter();
+        final MealAdapter lunchAdapter = new MealAdapter();
+        final MealAdapter dinnerAdapter = new MealAdapter();
+        final MealAdapter snacksAdapter = new MealAdapter();
         breakfastRecyclerView.setAdapter(breakfastAdapter);
         dinnerRecyclerView.setAdapter(dinnerAdapter);
         lunchRecyclerView.setAdapter(lunchAdapter);
         snacksRecyclerView.setAdapter(snacksAdapter);
 
-
-
-        mealViewModel.getBreakfast().observe(this, new Observer<List<Meal>>() {
+        mealViewModel = ViewModelProviders.of(this).get(MealViewModel.class);
+        mealViewModel.getAll().observe(this, new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meal) {
-                breakfastAdapter.setMeal(meal);
                 mealList = (ArrayList) meal;
-                //Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
+                setAdapters();
+            }
+
+            private void setAdapters() {
+                breakfastList.clear();
+                lunchList.clear();
+                dinnerList.clear();
+                snacksList.clear();
+                for (int i = 0; i < mealList.size(); i++) {
+                    if (mealList.get(i).getDate().contains(date)) {
+                        if (mealList.get(i).getKind().contains("Breakfast")) {
+                            breakfastList.add(mealList.get(i));
+                        } else if (mealList.get(i).getKind().contains("Lunch")) {
+                            lunchList.add(mealList.get(i));
+                        } else if (mealList.get(i).getKind().contains("Dinner")) {
+                            dinnerList.add(mealList.get(i));
+                        } else if (mealList.get(i).getKind().contains("Snacks")) {
+                            snacksList.add(mealList.get(i));
+                        }
+                    }
+                }
+                breakfastAdapter.setMeal(breakfastList);
+                lunchAdapter.setMeal(lunchList);
+                dinnerAdapter.setMeal(dinnerList);
+                snacksAdapter.setMeal(snacksList);
             }
         });
 
-        mealViewModel.getLunch().observe(this, new Observer<List<Meal>>() {
-            @Override
-            public void onChanged(List<Meal> meal) {
-                lunchAdapter.setMeal(meal);
-                mealList = (ArrayList) meal;
-                //Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
+        date_tv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(view.getContext(),
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        dateSetListener,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
             }
         });
 
-        mealViewModel.getDinner().observe(this, new Observer<List<Meal>>() {
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onChanged(List<Meal> meal) {
-                dinnerAdapter.setMeal(meal);
-                mealList = (ArrayList) meal;
-                //Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
-            }
-        });
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-        mealViewModel.getSnacks().observe(this, new Observer<List<Meal>>() {
-            @Override
-            public void onChanged(List<Meal> meal) {
-                snacksAdapter.setMeal(meal);
-                mealList = (ArrayList) meal;
-                //Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month);
+                cal.set(Calendar.DATE, dayOfMonth);
+                Date dateCal = cal.getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                date = sdf.format(dateCal);
+                //mealViewModel.setDate(date);
+                date_tv.setText("   " + date);
+                breakfastList.clear();
+                lunchList.clear();
+                dinnerList.clear();
+                snacksList.clear();
+                for (int i = 0; i < mealList.size(); i++) {
+                    if (mealList.get(i).getDate().contains(date)) {
+                        if (mealList.get(i).getKind().contains("Breakfast")) {
+                            breakfastList.add(mealList.get(i));
+                        } else if (mealList.get(i).getKind().contains("Lunch")) {
+                            lunchList.add(mealList.get(i));
+                        } else if (mealList.get(i).getKind().contains("Dinner")) {
+                            dinnerList.add(mealList.get(i));
+                        } else if (mealList.get(i).getKind().contains("Snacks")) {
+                            snacksList.add(mealList.get(i));
+                        }
+                    }
+                }
+                breakfastAdapter.setMeal(breakfastList);
+                lunchAdapter.setMeal(lunchList);
+                dinnerAdapter.setMeal(dinnerList);
+                snacksAdapter.setMeal(snacksList);
             }
-        });
+        };
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 

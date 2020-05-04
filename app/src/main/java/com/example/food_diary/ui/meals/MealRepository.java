@@ -18,7 +18,7 @@ public class MealRepository {
     private LiveData<List<Meal>> lunch;
     private LiveData<List<Meal>> dinner;
     private LiveData<List<Meal>> snacks;
-    private MutableLiveData<String> date = new MutableLiveData<String>();
+    //private String date;
 
     public MealRepository(Application application) {
         MealLocalDatabase database = MealLocalDatabase.getInstance(application);
@@ -27,7 +27,7 @@ public class MealRepository {
         breakfast = mealDao.getBreakfast();
         lunch = mealDao.getLunch();
         dinner = mealDao.getDinner();
-        snacks = mealDao.getSnacks();
+        snacks = mealDao.getSnacks();;
     }
 
     public void insert(Meal meal) {
@@ -46,17 +46,17 @@ public class MealRepository {
         new MealRepository.DeleteallMealAsyncTask(mealDao).execute();
     }
 
-    public void setDate(String filter) {
-        date.setValue(filter);
-        breakfast = mealDao.getBreakfast();
-        lunch = mealDao.getLunch();
-        dinner = mealDao.getDinner();
-        snacks = mealDao.getSnacks();
-    }
+//    public void setDate(String date) {
+//        breakfast = mealDao.getBreakfast(date);
+//        lunch = mealDao.getLunch(date);
+//        dinner = mealDao.getDinner(date);
+//        snacks = mealDao.getSnacks(date);
+//    }
 
     public LiveData<List<Meal>> getAll() {
         return  allMeal;
     }
+
     public LiveData<List<Meal>> getBreakfast() {
         breakfast = mealDao.getBreakfast();
         return  breakfast;
