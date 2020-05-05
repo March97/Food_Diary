@@ -26,6 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser currentUser) {
         if(currentUser != null){
+
             setContentView(R.layout.activity_main);
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -69,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
             NavigationUI.setupWithNavController(navigationView, navController);
+
+            View headerView = navigationView.getHeaderView(0);
+            TextView navUsername = (TextView) headerView.findViewById(R.id.textView);
+            navUsername.setText(currentUser.getEmail());
+
+
         }
         else{
             runLogInActivity();
@@ -82,30 +92,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_settings:
-                mAuth.signOut();
-                runLogInActivity();
-
-
-
-        }
-        return true;
-    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
-
         return true;
     }
+
 
 
     @Override
@@ -114,4 +110,20 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //handle menu item clicks
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            //do your function here+
+            mAuth.signOut();
+            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+            runLogInActivity();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
