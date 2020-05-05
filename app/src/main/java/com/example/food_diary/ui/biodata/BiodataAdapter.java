@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_diary.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class BiodataAdapter extends RecyclerView.Adapter<BiodataAdapter.BiodataH
         holder.id_tv.setText(String.valueOf(currentBiodata.getId()));
         holder.date_tv.setText(currentBiodata.getDate());
         holder.mass_tv.setText(currentBiodata.getMass() + "kg");
-        holder.bmi_tv.setText(String.valueOf(bmiCalculate(currentBiodata.getMass(), currentBiodata.getHeight())));
+        holder.bmi_tv.setText(new DecimalFormat("##.##").format(bmiCalculate(currentBiodata.getMass(), currentBiodata.getHeight())));
     }
 
     @Override

@@ -75,7 +75,7 @@ public class BiodataFragment extends Fragment {
 //                    editor.commit();
 //                }
 
-                Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
             }
         });
 
