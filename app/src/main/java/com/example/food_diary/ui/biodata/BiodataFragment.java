@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_diary.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,8 @@ public class BiodataFragment extends Fragment {
     public static final int EDIT_BIODATA_REQUEST = 2;
 
     private String email = "admin";
-    private int height = 150;
+    private int height = 180;
+    private FirebaseAuth mAuth;
 
     private BiodataViewModel biodataViewModel;
     private ArrayList<Biodata> biodataList;
@@ -40,6 +43,18 @@ public class BiodataFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_biodata_list, container, false);
+
+        biodataList = new ArrayList<Biodata>();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        try {
+            email = currentUser.getEmail();
+        }
+        catch (NullPointerException e) {
+            System.out.println("User email null");
+        }
+
         FloatingActionButton buttonAddOrder = root.findViewById(R.id.biodata_fab);
         buttonAddOrder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,26 +71,15 @@ public class BiodataFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         biodataViewModel = ViewModelProviders.of(this).get(BiodataViewModel.class);
-        biodataViewModel.getAll().observe(this, new Observer<List<Biodata>>() {
+        biodataViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Biodata>>() {
             @Override
             public void onChanged(List<Biodata> biodata) {
-                adapter.setBiodata(biodata);
-                //sharedPreferences = getActivity().getSharedPreferences("biodata_NAME", Context.MODE_PRIVATE);
-                //SharedPreferences.Editor editor = sharedPreferences.edit();
-                biodataList = (ArrayList) biodata;
-//                editor.putInt("arraySize", biodataList.size());
-//                for(int i = 0; i < biodataesList.size(); i++) {
-//                    String keyName = "D ";
-//                    String keyPrice = "P ";
-//                    keyName += i;
-//                    keyPrice += i;
-//                    System.out.println(keyName);
-//                    editor.putString(keyName, biodataesList.get(i).getName());
-//                    editor.putString(keyPrice, String.valueOf(biodataesList.get(i).getPrice()));
-//                    editor.commit();
-//                }
-
-                //Toast.makeText(getContext(), "onChanged", Toast.LENGTH_SHORT).show();
+                biodataList.clear();
+                for(int i = 0; i < biodata.size(); i++) {
+                    if(biodata.get(i).getEmail().contains(email))
+                        biodataList.add(biodata.get(i));
+                }
+                adapter.setBiodata(biodataList);
             }
         });
 
