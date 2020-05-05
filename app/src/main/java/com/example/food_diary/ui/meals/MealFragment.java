@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.food_diary.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,6 +56,7 @@ public class MealFragment extends Fragment {
     private int carbs;
     private int proteins;
     private int fat;
+    private FirebaseAuth mAuth;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +67,16 @@ public class MealFragment extends Fragment {
         lunchList = new ArrayList<Meal>();
         dinnerList = new ArrayList<Meal>();
         snacksList = new ArrayList<Meal>();
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        try {
+            email = currentUser.getEmail();
+        }
+        catch (NullPointerException e) {
+            System.out.println("User email null");
+        }
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -108,7 +121,7 @@ public class MealFragment extends Fragment {
         snacksRecyclerView.setAdapter(snacksAdapter);
 
         mealViewModel = ViewModelProviders.of(this).get(MealViewModel.class);
-        mealViewModel.getAll().observe(this, new Observer<List<Meal>>() {
+        mealViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meal) {
                 mealList = (ArrayList) meal;
@@ -122,7 +135,9 @@ public class MealFragment extends Fragment {
                 dinnerList.clear();
                 snacksList.clear();
                 for (int i = 0; i < mealList.size(); i++) {
-                    if (mealList.get(i).getDate().contains(date)) {
+                    System.out.println(email + "  email");
+                    System.out.println(mealList.get(i).getEmail() + " mail z listy");
+                    if (mealList.get(i).getDate().contains(date) && mealList.get(i).getEmail().contains(email)) {
                         if (mealList.get(i).getKind().contains("Breakfast")) {
                             breakfastList.add(mealList.get(i));
                         } else if (mealList.get(i).getKind().contains("Lunch")) {
@@ -177,7 +192,7 @@ public class MealFragment extends Fragment {
                 dinnerList.clear();
                 snacksList.clear();
                 for (int i = 0; i < mealList.size(); i++) {
-                    if (mealList.get(i).getDate().contains(date)) {
+                    if (mealList.get(i).getDate().contains(date) && mealList.get(i).getEmail().contains(email)) {
                         if (mealList.get(i).getKind().contains("Breakfast")) {
                             breakfastList.add(mealList.get(i));
                         } else if (mealList.get(i).getKind().contains("Lunch")) {
@@ -340,7 +355,7 @@ public class MealFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_MEAL_REQUEST && resultCode == RESULT_OK) {
-            String email = data.getStringExtra(MealAddActivity.EXTRA_EMAIL);
+            //String email = data.getStringExtra(MealAddActivity.EXTRA_EMAIL);
             String date = data.getStringExtra(MealAddActivity.EXTRA_DATE);
             String name = data.getStringExtra(MealAddActivity.EXTRA_NAME);
             String kind = data.getStringExtra(MealAddActivity.EXTRA_KIND);
@@ -363,7 +378,7 @@ public class MealFragment extends Fragment {
                 return;
             }
 
-            String email = data.getStringExtra(MealAddActivity.EXTRA_EMAIL);
+            //String email = data.getStringExtra(MealAddActivity.EXTRA_EMAIL);
             String date = data.getStringExtra(MealAddActivity.EXTRA_DATE);
             String name = data.getStringExtra(MealAddActivity.EXTRA_NAME);
             String kind = data.getStringExtra(MealAddActivity.EXTRA_KIND);
