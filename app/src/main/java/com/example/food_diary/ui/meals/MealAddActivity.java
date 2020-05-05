@@ -111,6 +111,9 @@ public class MealAddActivity extends AppCompatActivity {
     }
 
     private void saveMeal() {
+        MealRemoteDatabase mealRemoteDatabase = new MealRemoteDatabase();
+        String email = mealRemoteDatabase.getMAuth().getCurrentUser().getEmail();
+
         String name = name_et.getText().toString();
         String kind = String.valueOf(spinner.getSelectedItem());
         int mass = Integer.valueOf(mass_et.getText().toString());
@@ -127,6 +130,7 @@ public class MealAddActivity extends AppCompatActivity {
         }
 
         Intent data = new Intent();
+        data.putExtra(EXTRA_EMAIL, email);
         data.putExtra(EXTRA_NAME, name);
         data.putExtra(EXTRA_MASS, mass);
         data.putExtra(EXTRA_PORTIONS, portions);

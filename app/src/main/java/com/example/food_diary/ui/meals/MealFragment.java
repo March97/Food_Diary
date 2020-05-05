@@ -89,6 +89,7 @@ public class MealFragment extends Fragment {
         FloatingActionButton buttonAddOrder = root.findViewById(R.id.meal_fab);
         buttonAddOrder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 Intent intent = new Intent(getContext(), MealAddActivity.class);
                 intent.putExtra(MealAddActivity.EXTRA_DATE, date);
                 startActivityForResult(intent, ADD_MEAL_REQUEST);
@@ -137,7 +138,7 @@ public class MealFragment extends Fragment {
                 for (int i = 0; i < mealList.size(); i++) {
                     System.out.println(email + "  email");
                     System.out.println(mealList.get(i).getEmail() + " mail z listy");
-                    if (mealList.get(i).getDate().contains(date) && mealList.get(i).getEmail().contains(email)) {
+                    if (mealList.get(i).getDate().contains(date) && mealList.get(i).getEmail().equals(email)) {
                         if (mealList.get(i).getKind().contains("Breakfast")) {
                             breakfastList.add(mealList.get(i));
                         } else if (mealList.get(i).getKind().contains("Lunch")) {
