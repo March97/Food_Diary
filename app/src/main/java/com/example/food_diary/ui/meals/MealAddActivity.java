@@ -61,10 +61,12 @@ public class MealAddActivity extends AppCompatActivity {
     private EditText fat_et;
     private Button ok_btn;
     private String date;
+    MealRemoteDatabase mealRemoteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         mealRemoteDatabase = new MealRemoteDatabase();
 
         setContentView(R.layout.activity_meal_add);
 
@@ -102,13 +104,11 @@ public class MealAddActivity extends AppCompatActivity {
             setTitle("Add meal");
         }
 
-        ok_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveMeal();
-            }
-        });
+
+        ok_btn.setOnClickListener(v -> saveMeal());
+
     }
+
 
     private void saveMeal() {
         String name = name_et.getText().toString();
@@ -126,7 +126,10 @@ public class MealAddActivity extends AppCompatActivity {
             return;
         }
 
+        mealRemoteDatabase.createInstance();
+
         Intent data = new Intent();
+
         data.putExtra(EXTRA_NAME, name);
         data.putExtra(EXTRA_MASS, mass);
         data.putExtra(EXTRA_PORTIONS, portions);

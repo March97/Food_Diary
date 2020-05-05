@@ -108,7 +108,7 @@ public class MealFragment extends Fragment {
         snacksRecyclerView.setAdapter(snacksAdapter);
 
         mealViewModel = ViewModelProviders.of(this).get(MealViewModel.class);
-        mealViewModel.getAll().observe(this, new Observer<List<Meal>>() {
+        mealViewModel.getAll().observe(getViewLifecycleOwner(), new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meal) {
                 mealList = (ArrayList) meal;
@@ -355,6 +355,7 @@ public class MealFragment extends Fragment {
             Meal meal = new Meal(email, date, name, kind, mass, energy, carbs, protein, fat, portions);
             mealViewModel.insert(meal);
             Toast.makeText(getContext(), "Meal saved", Toast.LENGTH_SHORT).show();
+
         } else if (requestCode == EDIT_MEAL_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(MealAddActivity.EXTRA_ID, -1);
 
