@@ -13,8 +13,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.food_diary.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.nio.BufferUnderflowException;
+
+import static com.example.food_diary.ui.meals.MealFragment.ADD_MEAL_REQUEST;
+import static com.example.food_diary.ui.meals.MealFragment.EDIT_MEAL_REQUEST;
 
 public class MealAddActivity extends AppCompatActivity {
 
@@ -108,7 +112,45 @@ public class MealAddActivity extends AppCompatActivity {
                 saveMeal();
             }
         });
+
+
+        FloatingActionButton buttonAddOrder = findViewById(R.id.searchMeal);
+        buttonAddOrder.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), SearchFood.class);
+                intent.putExtra(MealAddActivity.EXTRA_DATE, date);
+                startActivityForResult(intent, ADD_MEAL_REQUEST);
+            }
+        });
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ( resultCode == RESULT_OK) {
+
+            double mass = data.getDoubleExtra(SearchFood.EXTRA_MASS, 1.0);
+            int energy = data.getIntExtra(SearchFood.EXTRA_ENERGY, 1);
+            int carbs = data.getIntExtra(SearchFood.EXTRA_CARBS, 1);
+            int protein = data.getIntExtra(SearchFood.EXTRA_PROTEIN, 1);
+            int fat = data.getIntExtra(SearchFood.EXTRA_FAT, 1);
+            int portions = data.getIntExtra(SearchFood.EXTRA_PORTIONS, 1);
+
+            mass_et.setText((int) mass);
+            portions_et.setText(portions);
+            energy_et.setText(energy);
+            carb_et.setText(carbs);
+            fat_et.setText(fat);
+            protein_et.setText(protein);
+
+            Toast.makeText(this, "Meal selected", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Meal not selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
     private void saveMeal() {
         MealRemoteDatabase mealRemoteDatabase = new MealRemoteDatabase();
@@ -145,6 +187,7 @@ public class MealAddActivity extends AppCompatActivity {
         if (id != -1) {
             data.putExtra(EXTRA_ID, id);
         }
+
 
         setResult(RESULT_OK, data);
         finish();
