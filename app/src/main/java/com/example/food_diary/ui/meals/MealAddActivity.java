@@ -130,14 +130,15 @@ public class MealAddActivity extends AppCompatActivity {
 
         if ( resultCode == RESULT_OK) {
 
-            double mass = data.getDoubleExtra(SearchFood.EXTRA_MASS, 1.0);
-            int energy = data.getIntExtra(SearchFood.EXTRA_ENERGY, 1);
-            int carbs = data.getIntExtra(SearchFood.EXTRA_CARBS, 1);
-            int protein = data.getIntExtra(SearchFood.EXTRA_PROTEIN, 1);
-            int fat = data.getIntExtra(SearchFood.EXTRA_FAT, 1);
-            int portions = data.getIntExtra(SearchFood.EXTRA_PORTIONS, 1);
+            String energy = data.getStringExtra(SearchFood.EXTRA_ENERGY);
+            String carbs = data.getStringExtra(SearchFood.EXTRA_CARBS);
+            String protein = data.getStringExtra(SearchFood.EXTRA_PROTEIN);
+            String fat = data.getStringExtra(SearchFood.EXTRA_FAT);
+            String portions = data.getStringExtra(SearchFood.EXTRA_PORTIONS);
+            String name=  data.getStringExtra(SearchFood.EXTRA_NAME);
 
-            mass_et.setText((int) mass);
+            name_et.setText(name);
+            mass_et.setText("100");
             portions_et.setText(portions);
             energy_et.setText(energy);
             carb_et.setText(carbs);
@@ -166,7 +167,7 @@ public class MealAddActivity extends AppCompatActivity {
         int protein = Integer.valueOf(fat_et.getText().toString());
 
 
-        if(energy <= 0) {
+        if(Integer.valueOf(energy) <= 0) {
             Toast.makeText(this, "Please insert proper values", Toast.LENGTH_SHORT).show();
             return;
         }

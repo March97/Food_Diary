@@ -6,20 +6,27 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import com.example.food_diary.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-public class SearchFood extends AppCompatActivity {
+public class SearchFood extends AppCompatActivity implements LifecycleOwner {
+    public static final String EXTRA_NAME = "com.example.food_diary.ui.mealsS.EXTRA_NAME";
 
     public static final String EXTRA_MASS = "com.example.food_diary.ui.mealsS.EXTRA_MASS";
     public static final String EXTRA_ENERGY = "com.example.food_diary.ui.mealsS.EXTRA_ENERGY";
@@ -40,6 +47,9 @@ public class SearchFood extends AppCompatActivity {
     private Button doSpecyfikacji;
     private String date;
     private Pair<ArrayList<String>, ArrayList<HashMap<String, String>>> c1;
+    Map<String,Object> combo ;
+    LinkedHashMap<String,Object> comboL;
+    List<Map<String,Object>> listaMap;
 
     public SearchFood() {
     }
@@ -49,11 +59,10 @@ public class SearchFood extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_search_food);
-
         listViewOfItems = findViewById(R.id.listOfFood);
         inputSearch = findViewById(R.id.searched_item);
 
-
+listaMap = new ArrayList<>();
         inputSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -62,7 +71,34 @@ public class SearchFood extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchFoodViewModel.changeSearchedFoodName("");
+                searchFoodViewModel.changeSearchedFoodName(s.toString()).observe(SearchFood.this, new Observer<Map<String, Object>>() {
+                    @Override
+                    public void onChanged(Map<String, Object> stringObjectMap) {
+                    combo = stringObjectMap;
+
+
+                            listItems.add(stringObjectMap.get("product_name").toString());
+                            listaMap.add(combo);
+                        System.out.println(listaMap.size());
+                        List<String> arr = new ArrayList<>(listItems);
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                                SearchFood.this,
+                                android.R.layout.simple_list_item_1,
+                                arr );
+
+                        comboL = new LinkedHashMap<>(combo);
+                        listViewOfItems.setAdapter(arrayAdapter);
+
+
+                    }
+                });
+                listViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        whenSelectedMeal(position);
+                    }
+                });
+
               /*  searchFoodViewModel.changeSearchedFoodName(s.toString()).observe(getViewLifecycleOwner(), new Observer<Pair<ArrayList<String>, ArrayList<HashMap<String, String>>>>() {
                     @Override
                     public void onChanged(Pair<ArrayList<String>, ArrayList<HashMap<String, String>>> arrayListArrayListPair) {
@@ -86,18 +122,19 @@ public class SearchFood extends AppCompatActivity {
 }
 
 
-    private void whenSelectedMeal() {
+    private void whenSelectedMeal(int pos) {
 
         Intent data = new Intent();
-/*
 
-        data.putExtra(EXTRA_MASS, mass);
-        data.putExtra(EXTRA_PORTIONS, portions);
-        data.putExtra(EXTRA_ENERGY, energy);
-        data.putExtra(EXTRA_CARBS, carb);
-        data.putExtra(EXTRA_PROTEIN, protein);
-        data.putExtra(EXTRA_FAT, fat);
-*/
+
+        data.putExtra(EXTRA_NAME, listaMap.get(pos).get("product_name").toString());
+        data.putExtra(EXTRA_MASS, "100");
+        data.putExtra(EXTRA_PORTIONS, "1");
+        data.putExtra(EXTRA_ENERGY, listaMap.get(pos).get("energy_100g").toString());
+        data.putExtra(EXTRA_CARBS, listaMap.get(pos).get("carbohydrates_100g").toString());
+        data.putExtra(EXTRA_PROTEIN, listaMap.get(pos).get("proteins_100g").toString());
+        data.putExtra(EXTRA_FAT, listaMap.get(pos).get("fat_100g").toString());
+
 
 
         setResult(RESULT_OK, data);
