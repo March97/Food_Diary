@@ -428,7 +428,7 @@ public class MealFragment extends Fragment {
             fat += snacksList.get(i).getFat();
             carbs += snacksList.get(i).getCarbs();
         }
-
-        macros_tv.setText("   " + energy + " kcal       c: " + carbs + "g       p: " + proteins + "g        f: " + fat + "g");
+        //..odpal ten pasek na tablecie tera XD
+        macros_tv.setText("   " + energy + " kcal     c: " + carbs + "g      p: " + proteins + "g      f: " + fat + "g");
     }
 }
