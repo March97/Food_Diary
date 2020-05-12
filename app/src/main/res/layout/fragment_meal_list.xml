@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/meal_date_tv"
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             android:text="@string/meal_date_tv"
