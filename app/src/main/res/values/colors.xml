@@ -6,4 +6,6 @@
     <color name="colorBackground">#3498DB</color>
     <color name="colorGrey">#A6ACAF </color>
     <color name="hintColor">#00FF00</color>
+    <color name="orange">#FFD700</color>
+    <color name="white">#FFFFFF</color>
 </resources>
