@@ -133,10 +133,14 @@ public class SearchFood extends AppCompatActivity implements LifecycleOwner {
         data.putExtra(EXTRA_NAME, listaMap.get(pos).get("product_name").toString());
         data.putExtra(EXTRA_MASS, "100");
         data.putExtra(EXTRA_PORTIONS, "1");
-        data.putExtra(EXTRA_ENERGY, listaMap.get(pos).get("energy_100g").toString());
-        data.putExtra(EXTRA_CARBS, listaMap.get(pos).get("carbohydrates_100g").toString());
-        data.putExtra(EXTRA_PROTEIN, listaMap.get(pos).get("proteins_100g").toString());
-        data.putExtra(EXTRA_FAT, listaMap.get(pos).get("fat_100g").toString());
+        if (listItems.get(pos).contains("energy_100g"))
+            data.putExtra(EXTRA_ENERGY, listaMap.get(pos).get("energy_100g").toString());
+        if (listItems.get(pos).contains("carbohydrates_100g"))
+            data.putExtra(EXTRA_CARBS, listaMap.get(pos).get("carbohydrates_100g").toString());
+        if (listItems.get(pos).contains("proteins_100g"))
+            data.putExtra(EXTRA_PROTEIN, listaMap.get(pos).get("proteins_100g").toString());
+        if (listItems.get(pos).contains("fat_100g"))
+            data.putExtra(EXTRA_FAT, listaMap.get(pos).get("fat_100g").toString());
 
 
         setResult(RESULT_OK, data);

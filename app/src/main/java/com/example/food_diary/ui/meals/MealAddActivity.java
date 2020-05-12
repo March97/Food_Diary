@@ -3,6 +3,7 @@ package com.example.food_diary.ui.meals;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -109,7 +110,11 @@ public class MealAddActivity extends AppCompatActivity {
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveMeal();
+                if (isInsertedInFields())
+                    saveMeal();
+                else{
+                    Toast.makeText(MealAddActivity.this,"prosze uzpelnic wszystkie pola",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -125,17 +130,24 @@ public class MealAddActivity extends AppCompatActivity {
         });
     }
 
+    private boolean isInsertedInFields() {
+        if (TextUtils.isEmpty(name_et.getText()) || TextUtils.isEmpty(protein_et.getText()) || TextUtils.isEmpty(carb_et.getText()) || TextUtils.isEmpty(fat_et.getText())
+                || TextUtils.isEmpty(energy_et.getText()) || TextUtils.isEmpty(mass_et.getText()) || TextUtils.isEmpty(portions_et.getText()))
+            return false;
+        else return true;
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if ( resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
 
             String energy = data.getStringExtra(SearchFood.EXTRA_ENERGY);
             String carbs = data.getStringExtra(SearchFood.EXTRA_CARBS);
             String protein = data.getStringExtra(SearchFood.EXTRA_PROTEIN);
             String fat = data.getStringExtra(SearchFood.EXTRA_FAT);
             String portions = data.getStringExtra(SearchFood.EXTRA_PORTIONS);
-            String name=  data.getStringExtra(SearchFood.EXTRA_NAME);
+            String name = data.getStringExtra(SearchFood.EXTRA_NAME);
 
             name_et.setText(name);
             mass_et.setText("100");
@@ -152,7 +164,6 @@ public class MealAddActivity extends AppCompatActivity {
     }
 
 
-
     private void saveMeal() {
         MealRemoteDatabase mealRemoteDatabase = new MealRemoteDatabase();
         String email = mealRemoteDatabase.getMAuth().getCurrentUser().getEmail();
@@ -167,7 +178,7 @@ public class MealAddActivity extends AppCompatActivity {
         Double protein = Double.valueOf(fat_et.getText().toString());
 
 
-        if(Integer.valueOf(energy) <= 0) {
+        if (Integer.valueOf(energy) <= 0) {
             Toast.makeText(this, "Please insert proper values", Toast.LENGTH_SHORT).show();
             return;
         }
