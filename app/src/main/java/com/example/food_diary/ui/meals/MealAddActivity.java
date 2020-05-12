@@ -3,6 +3,7 @@ package com.example.food_diary.ui.meals;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,8 +14,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.food_diary.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.nio.BufferUnderflowException;
+
+import static com.example.food_diary.ui.meals.MealFragment.ADD_MEAL_REQUEST;
+import static com.example.food_diary.ui.meals.MealFragment.EDIT_MEAL_REQUEST;
 
 public class MealAddActivity extends AppCompatActivity {
 
@@ -105,28 +110,81 @@ public class MealAddActivity extends AppCompatActivity {
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveMeal();
+                if (isInsertedInFields())
+                    saveMeal();
+                else{
+                    Toast.makeText(MealAddActivity.this,"prosze uzpelnic wszystkie pola",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        FloatingActionButton buttonAddOrder = findViewById(R.id.searchMeal);
+        buttonAddOrder.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), SearchFood.class);
+                intent.putExtra(MealAddActivity.EXTRA_DATE, date);
+                startActivityForResult(intent, ADD_MEAL_REQUEST);
             }
         });
     }
 
+    private boolean isInsertedInFields() {
+        if (TextUtils.isEmpty(name_et.getText()) || TextUtils.isEmpty(protein_et.getText()) || TextUtils.isEmpty(carb_et.getText()) || TextUtils.isEmpty(fat_et.getText())
+                || TextUtils.isEmpty(energy_et.getText()) || TextUtils.isEmpty(mass_et.getText()) || TextUtils.isEmpty(portions_et.getText()))
+            return false;
+        else return true;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            String energy = data.getStringExtra(SearchFood.EXTRA_ENERGY);
+            String carbs = data.getStringExtra(SearchFood.EXTRA_CARBS);
+            String protein = data.getStringExtra(SearchFood.EXTRA_PROTEIN);
+            String fat = data.getStringExtra(SearchFood.EXTRA_FAT);
+            String portions = data.getStringExtra(SearchFood.EXTRA_PORTIONS);
+            String name = data.getStringExtra(SearchFood.EXTRA_NAME);
+
+            name_et.setText(name);
+            mass_et.setText("100");
+            portions_et.setText(portions);
+            energy_et.setText(energy);
+            carb_et.setText(carbs);
+            fat_et.setText(fat);
+            protein_et.setText(protein);
+
+            Toast.makeText(this, "Meal selected", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Meal not selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     private void saveMeal() {
+        MealRemoteDatabase mealRemoteDatabase = new MealRemoteDatabase();
+        String email = mealRemoteDatabase.getMAuth().getCurrentUser().getEmail();
+
         String name = name_et.getText().toString();
         String kind = String.valueOf(spinner.getSelectedItem());
         int mass = Integer.valueOf(mass_et.getText().toString());
-        int portions = Integer.valueOf(portions_et.getText().toString());
+        Double portions = Double.valueOf(portions_et.getText().toString());
         int energy = Integer.valueOf(energy_et.getText().toString());
-        int carb = Integer.valueOf(carb_et.getText().toString());
-        int fat = Integer.valueOf(protein_et.getText().toString());
-        int protein = Integer.valueOf(fat_et.getText().toString());
+        Double carb = Double.valueOf(carb_et.getText().toString());
+        Double fat = Double.valueOf(protein_et.getText().toString());
+        Double protein = Double.valueOf(fat_et.getText().toString());
 
 
-        if(energy <= 0) {
+        if (Integer.valueOf(energy) <= 0) {
             Toast.makeText(this, "Please insert proper values", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Intent data = new Intent();
+        data.putExtra(EXTRA_EMAIL, email);
         data.putExtra(EXTRA_NAME, name);
         data.putExtra(EXTRA_MASS, mass);
         data.putExtra(EXTRA_PORTIONS, portions);
@@ -141,6 +199,7 @@ public class MealAddActivity extends AppCompatActivity {
         if (id != -1) {
             data.putExtra(EXTRA_ID, id);
         }
+
 
         setResult(RESULT_OK, data);
         finish();
