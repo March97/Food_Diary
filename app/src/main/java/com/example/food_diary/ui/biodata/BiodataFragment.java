@@ -32,7 +32,7 @@ public class BiodataFragment extends Fragment {
     public static final int EDIT_BIODATA_REQUEST = 2;
 
     private String email = "admin";
-    private int height = 180;
+    //private int height = 180;
     private FirebaseAuth mAuth;
 
     private BiodataViewModel biodataViewModel;
@@ -119,6 +119,7 @@ public class BiodataFragment extends Fragment {
         if (requestCode == ADD_BIODATA_REQUEST && resultCode == RESULT_OK) {
             String date = data.getStringExtra(BiodataAddActivity.EXTRA_DATE);
             int mass = data.getIntExtra(BiodataAddActivity.EXTRA_MASS, 1);
+            int height = data.getIntExtra(BiodataAddActivity.EXTRA_HEIGHT, 1);
 
             Biodata biodata = new Biodata(date, mass, height, email);
             biodataViewModel.insert(biodata);
@@ -133,6 +134,7 @@ public class BiodataFragment extends Fragment {
 
             String date = data.getStringExtra(BiodataAddActivity.EXTRA_DATE);
             int mass = data.getIntExtra(BiodataAddActivity.EXTRA_MASS, 1);
+            int height = data.getIntExtra(BiodataAddActivity.EXTRA_HEIGHT, 1);
 
             Biodata biodata = new Biodata(date, mass, height, email);
             biodata.setId(id);

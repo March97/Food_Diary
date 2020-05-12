@@ -32,10 +32,14 @@ public class BiodataAddActivity extends AppCompatActivity {
     public static final String EXTRA_MASS =
             "com.example.food_diary.ui.biodata.EXTRA_MASS";
 
+    public static final String EXTRA_HEIGHT =
+            "com.example.food_diary.ui.biodata.EXTRA_HEIGHT";
+
     public static final String EXTRA_DATE =
             "com.example.food_diary.ui.biodata.EXTRA_DATE";
 
     private EditText mass_et;
+    private EditText height_et;
     private TextView date_tv;
     private Button ok_btn;
     private DatePickerDialog.OnDateSetListener dateSetListener;
@@ -47,6 +51,7 @@ public class BiodataAddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_biodata_add);
 
         mass_et = findViewById(R.id.biodata_add_mass);
+        height_et = findViewById(R.id.biodata_add_height);
         date_tv = findViewById(R.id.biodata_add_date);
         ok_btn = findViewById(R.id.biodata_add_button);
 
@@ -55,6 +60,7 @@ public class BiodataAddActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit biodata");
             mass_et.setText(String.valueOf(intent.getIntExtra(EXTRA_MASS, 1)));
+            height_et.setText(String.valueOf(intent.getIntExtra(EXTRA_MASS, 1)));
             date_tv.setText(intent.getStringExtra(EXTRA_DATE));
         } else
         {
@@ -107,15 +113,17 @@ public class BiodataAddActivity extends AppCompatActivity {
 
     private void saveBiodata() {
         int mass = Integer.valueOf(mass_et.getText().toString());
+        int height = Integer.valueOf(height_et.getText().toString());
         String date = date_tv.getText().toString();
 
-        if(date.trim().isEmpty() || mass <= 0) {
+        if(date.trim().isEmpty() || mass <= 0 || height <= 0) {
             Toast.makeText(this, "Please insert proper values", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Intent data = new Intent();
         data.putExtra(EXTRA_MASS, mass);
+        data.putExtra(EXTRA_HEIGHT, height);
         data.putExtra(EXTRA_DATE, date);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);

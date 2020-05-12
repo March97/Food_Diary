@@ -40,6 +40,20 @@
             android:textColorHint="@color/colorGrey" />
 
         <EditText
+            android:id="@+id/biodata_add_height"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent"
+            android:hint="@string/biodata_hint_height"
+            android:inputType="number"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textSize="18sp"
+            android:textColor="@color/colorGrey"
+            android:textColorHint="@color/colorGrey" />
+
+        <EditText
             android:id="@+id/biodata_add_mass"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
