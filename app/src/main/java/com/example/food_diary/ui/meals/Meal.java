@@ -14,12 +14,12 @@ public class Meal {
     private String kind;
     private double mass;
     private int energy;
-    private int carbs;
-    private int protein;
-    private int fat;
-    private int portions;
+    private double carbs;
+    private double protein;
+    private double fat;
+    private double portions;
 
-    public Meal(String email, String date, String name, String kind, double mass, int energy, int carbs, int protein, int fat, int portions) {
+    public Meal(String email, String date, String name, String kind, double mass, int energy, double carbs, double protein, double fat, double portions) {
         this.email = email;
         this.date = date;
         this.name = name;
@@ -88,7 +88,7 @@ public class Meal {
         this.energy = energy;
     }
 
-    public int getCarbs() {
+    public double getCarbs() {
         return carbs;
     }
 
@@ -96,7 +96,7 @@ public class Meal {
         this.carbs = carbs;
     }
 
-    public int getProtein() {
+    public double getProtein() {
         return protein;
     }
 
@@ -104,7 +104,7 @@ public class Meal {
         this.protein = protein;
     }
 
-    public int getFat() {
+    public double getFat() {
         return fat;
     }
 
@@ -112,7 +112,7 @@ public class Meal {
         this.fat = fat;
     }
 
-    public int getPortions() {
+    public double getPortions() {
         return portions;
     }
 

@@ -160,11 +160,11 @@ public class MealAddActivity extends AppCompatActivity {
         String name = name_et.getText().toString();
         String kind = String.valueOf(spinner.getSelectedItem());
         int mass = Integer.valueOf(mass_et.getText().toString());
-        int portions = Integer.valueOf(portions_et.getText().toString());
+        Double portions = Double.valueOf(portions_et.getText().toString());
         int energy = Integer.valueOf(energy_et.getText().toString());
-        int carb = Integer.valueOf(carb_et.getText().toString());
-        int fat = Integer.valueOf(protein_et.getText().toString());
-        int protein = Integer.valueOf(fat_et.getText().toString());
+        Double carb = Double.valueOf(carb_et.getText().toString());
+        Double fat = Double.valueOf(protein_et.getText().toString());
+        Double protein = Double.valueOf(fat_et.getText().toString());
 
 
         if(Integer.valueOf(energy) <= 0) {

@@ -47,9 +47,9 @@ public class SearchFood extends AppCompatActivity implements LifecycleOwner {
     private Button doSpecyfikacji;
     private String date;
     private Pair<ArrayList<String>, ArrayList<HashMap<String, String>>> c1;
-    Map<String,Object> combo ;
-    LinkedHashMap<String,Object> comboL;
-    List<Map<String,Object>> listaMap;
+    Map<String, Object> combo;
+    LinkedHashMap<String, Object> comboL;
+    List<Map<String, Object>> listaMap;
 
     public SearchFood() {
     }
@@ -62,7 +62,7 @@ public class SearchFood extends AppCompatActivity implements LifecycleOwner {
         listViewOfItems = findViewById(R.id.listOfFood);
         inputSearch = findViewById(R.id.searched_item);
 
-listaMap = new ArrayList<>();
+        listaMap = new ArrayList<>();
         inputSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -71,20 +71,28 @@ listaMap = new ArrayList<>();
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                clearAll();
+
                 searchFoodViewModel.changeSearchedFoodName(s.toString()).observe(SearchFood.this, new Observer<Map<String, Object>>() {
                     @Override
                     public void onChanged(Map<String, Object> stringObjectMap) {
-                    combo = stringObjectMap;
+
+                        combo = stringObjectMap;
 
 
-                            listItems.add(stringObjectMap.get("product_name").toString());
-                            listaMap.add(combo);
-                        System.out.println(listaMap.size());
+                        listItems.add(stringObjectMap.get("product_name").toString());
+                        listaMap.add(combo);
                         List<String> arr = new ArrayList<>(listItems);
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                                 SearchFood.this,
                                 android.R.layout.simple_list_item_1,
-                                arr );
+                                arr);
+
 
                         comboL = new LinkedHashMap<>(combo);
                         listViewOfItems.setAdapter(arrayAdapter);
@@ -99,27 +107,22 @@ listaMap = new ArrayList<>();
                     }
                 });
 
-              /*  searchFoodViewModel.changeSearchedFoodName(s.toString()).observe(getViewLifecycleOwner(), new Observer<Pair<ArrayList<String>, ArrayList<HashMap<String, String>>>>() {
-                    @Override
-                    public void onChanged(Pair<ArrayList<String>, ArrayList<HashMap<String, String>>> arrayListArrayListPair) {
-
-                    }
-
-                }*/
-
             }
+        });
 
 
+    }
 
-        @Override
-        public void afterTextChanged (Editable s){
-
-
+    private void clearAll() {
+        if (combo != null && combo.size() != 0) {
+            combo.clear();
         }
-    });
+        if (listaMap != null && listaMap.size() != 0) listaMap.clear();
+        if (listItems != null && listItems.size() != 0)
+            listItems.clear();
 
 
-}
+    }
 
 
     private void whenSelectedMeal(int pos) {
@@ -134,7 +137,6 @@ listaMap = new ArrayList<>();
         data.putExtra(EXTRA_CARBS, listaMap.get(pos).get("carbohydrates_100g").toString());
         data.putExtra(EXTRA_PROTEIN, listaMap.get(pos).get("proteins_100g").toString());
         data.putExtra(EXTRA_FAT, listaMap.get(pos).get("fat_100g").toString());
-
 
 
         setResult(RESULT_OK, data);

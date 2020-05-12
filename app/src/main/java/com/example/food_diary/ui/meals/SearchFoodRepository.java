@@ -34,7 +34,7 @@ public class SearchFoodRepository {
 
 
     private ArrayList<String> listItems = new ArrayList<>();
-    private MutableLiveData<Map<String,Object> >combo = new MutableLiveData<>();
+    private MutableLiveData<Map<String, Object>> combo = new MutableLiveData<>();
 
 
     public SearchFoodRepository(String input) {
@@ -44,27 +44,40 @@ public class SearchFoodRepository {
         }
 
 
-    input= "Se";
+        if (input == null) {
+            input = "s";
+        }
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference myRef = database.getReference()
-                ;
+        DatabaseReference myRef = database.getReference();
 
 
-        Query query = myRef.orderByChild("product_name").startAt(input).endAt(input +"\uf8ff").limitToFirst(10);
+        Query query = myRef.orderByChild("product_name").startAt(input).endAt(input + "\uf8ff").limitToFirst(10);
 
-        System.out.println("LOOOL");
         query.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int i=0;
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                int i = 0;
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     i++;
+                    String name = ds.child("product_name").getValue(String.class);
+                    Integer energy = ds.child("energy_100g").getValue(Integer.class);
+                    Double carbohydrates = (Double) ds.child("carbohydrates_100g").getValue(Double.class);
+                    Double proteins = ds.child("proteins_100g").getValue(Double.class);
+                    Double fat = ds.child("fat_100g").getValue(Double.class);
 
-                    Map<String, Object> map = (Map<String, Object>) ds.getValue();
-                    combo.setValue(map);
+                    Map<String, Object> map2 = new HashMap<>();
+                    map2.put("product_name", name);
+                    map2.put("energy_100g", energy);
+                    map2.put("carbohydrates_100g", carbohydrates);
+                    map2.put("proteins_100g", proteins);
+                    map2.put("fat_100g", fat);
+
+                    System.out.println("tag" + map2.toString());
+                    Log.d("skom", map2.toString());
+                    combo.setValue(map2);
                 }
 
             }
@@ -78,13 +91,10 @@ public class SearchFoodRepository {
     }
 
 
-
-    public MutableLiveData<Map<String,Object> > getItem() {
-
+    public MutableLiveData<Map<String, Object>> getItem() {
+        System.out.println(combo.toString());
         return combo;
     }
-
-
 
 
 }

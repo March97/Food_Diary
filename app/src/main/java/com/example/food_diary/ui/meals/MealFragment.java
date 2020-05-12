@@ -36,8 +36,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class MealFragment extends Fragment {
 
-    public static final int ADD_MEAL_REQUEST = 1;
-    public static final int EDIT_MEAL_REQUEST = 2;
+    static final int ADD_MEAL_REQUEST = 1;
+    static final int EDIT_MEAL_REQUEST = 2;
 
     private String email = "admin";
     private int height = 150;
@@ -157,22 +157,20 @@ public class MealFragment extends Fragment {
             }
         });
 
-        date_tv.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        date_tv.setOnClickListener(view -> {
 
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(view.getContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+            DatePickerDialog dialog = new DatePickerDialog(view.getContext(),
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    dateSetListener,
+                    year, month, day);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
 
-            }
         });
 
         dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -362,10 +360,10 @@ public class MealFragment extends Fragment {
             String kind = data.getStringExtra(MealAddActivity.EXTRA_KIND);
             double mass = data.getDoubleExtra(MealAddActivity.EXTRA_MASS, 1.0);
             int energy = data.getIntExtra(MealAddActivity.EXTRA_ENERGY, 1);
-            int carbs = data.getIntExtra(MealAddActivity.EXTRA_CARBS, 1);
-            int protein = data.getIntExtra(MealAddActivity.EXTRA_PROTEIN, 1);
-            int fat = data.getIntExtra(MealAddActivity.EXTRA_FAT, 1);
-            int portions = data.getIntExtra(MealAddActivity.EXTRA_PORTIONS, 1);
+            double carbs = data.getDoubleExtra(MealAddActivity.EXTRA_CARBS, 1);
+            double protein = data.getDoubleExtra(MealAddActivity.EXTRA_PROTEIN, 1);
+            double fat = data.getDoubleExtra(MealAddActivity.EXTRA_FAT, 1);
+            double portions = data.getDoubleExtra(MealAddActivity.EXTRA_PORTIONS, 1);
 
 
             Meal meal = new Meal(email, date, name, kind, mass, energy, carbs, protein, fat, portions);
@@ -385,10 +383,10 @@ public class MealFragment extends Fragment {
             String kind = data.getStringExtra(MealAddActivity.EXTRA_KIND);
             double mass = data.getDoubleExtra(MealAddActivity.EXTRA_MASS, 1.0);
             int energy = data.getIntExtra(MealAddActivity.EXTRA_ENERGY, 1);
-            int carbs = data.getIntExtra(MealAddActivity.EXTRA_CARBS, 1);
-            int protein = data.getIntExtra(MealAddActivity.EXTRA_PROTEIN, 1);
-            int fat = data.getIntExtra(MealAddActivity.EXTRA_FAT, 1);
-            int portions = data.getIntExtra(MealAddActivity.EXTRA_PORTIONS, 1);
+            double carbs = data.getDoubleExtra(MealAddActivity.EXTRA_CARBS, 1);
+            double protein = data.getDoubleExtra(MealAddActivity.EXTRA_PROTEIN, 1);
+            double fat = data.getDoubleExtra(MealAddActivity.EXTRA_FAT, 1);
+            double portions = data.getDoubleExtra(MealAddActivity.EXTRA_PORTIONS, 1);
 
             Meal meal = new Meal(email, date, name, kind, mass, energy, carbs, protein, fat, portions);
             meal.setId(id);
