@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground"
     android:gravity="center"
     android:orientation="vertical"
@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
+        android:paddingRight="20dp">
 
         <TextView
             android:id="@+id/meal_add_title"
@@ -23,96 +23,219 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@string/meal_add_title"
-            android:textSize="20sp"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
 
 
-        <EditText
-            android:id="@+id/meal_add_name"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorAccent"
-            android:hint="@string/meal_add_name"
-            android:inputType="text"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textSize="18sp"
-            android:textColor="@color/colorGrey"
-            android:textColorHint="@color/colorGrey" />
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/meal_add_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusedByDefault="true"
+                android:hint="Name"
+                android:textColorHint="@color/hintColor"
+                android:padding="10dp"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- <EditText
+             android:id="@+id/meal_add_name"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:padding="10dp"
+             android:background="@color/colorAccent"
+             android:hint="@string/meal_add_name"
+             android:inputType="text"
+             android:singleLine="true"
+             android:textSize="18sp"
+             android:textColor="@color/colorGrey"
+             android:textColorHint="@color/colorGrey" />-->
 
         <Spinner
             android:id="@+id/meal_add_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="@color/colorAccent"
             android:hint="@string/meal_add_name"
+            android:minHeight="18sp"
             android:padding="10dp"
             android:singleLine="true"
-            android:textSize="18sp"
             android:textColor="@color/colorGrey"
             android:textColorHint="@color/colorGrey"
-            android:minHeight="18sp"/>
+            android:textSize="18sp" />
         <!--        android:entries="@array/meal_arrays"-->
 
-        <EditText
-            android:id="@+id/meal_add_mass"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorAccent"
-            android:hint="@string/meal_add_mass"
-            android:inputType="number"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textSize="18sp"
-            android:textColor="@color/colorGrey"
-            android:textColorHint="@color/colorGrey" />
 
-        <EditText
-            android:id="@+id/meal_add_portions"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorAccent"
-            android:hint="@string/meal_add_portions"
-            android:inputType="number"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textSize="18sp"
-            android:textColor="@color/colorGrey"
-            android:textColorHint="@color/colorGrey" />
+        <com.google.android.material.textfield.TextInputLayout
 
-        <EditText
-            android:id="@+id/meal_add_energy"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorAccent"
-            android:hint="@string/meal_add_energy"
-            android:inputType="number"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textSize="18sp"
-            android:textColor="@color/colorGrey"
-            android:textColorHint="@color/colorGrey" />
 
-        <EditText
-            android:id="@+id/meal_add_carb"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorAccent"
-            android:hint="@string/meal_add_carb"
-            android:inputType="number"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textSize="18sp"
-            android:textColor="@color/colorGrey"
-            android:textColorHint="@color/colorGrey" />
+            android:layout_height="wrap_content">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/meal_add_mass"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusedByDefault="true"
+                android:hint="@string/meal_add_mass"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorGrey"
+                android:textColorHint="@color/colorGrey" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- <EditText
+             android:id="@+id/meal_add_mass"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@color/colorAccent"
+             android:hint="@string/meal_add_mass"
+             android:inputType="number"
+             android:padding="10dp"
+             android:singleLine="true"
+             android:textSize="18sp"
+             android:textColor="@color/colorGrey"
+             android:textColorHint="@color/colorGrey" />-->
+        <com.google.android.material.textfield.TextInputLayout
+
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/meal_add_portions"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusedByDefault="true"
+                android:hint="@string/meal_add_portions"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorGrey"
+                android:textColorHint="@color/colorGrey" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- <EditText
+             android:id="@+id/meal_add_portions"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@color/colorAccent"
+             android:hint="@string/meal_add_portions"
+             android:inputType="number"
+             android:padding="10dp"
+             android:singleLine="true"
+             android:textSize="18sp"
+             android:textColor="@color/colorGrey"
+             android:textColorHint="@color/colorGrey" />-->
+        <com.google.android.material.textfield.TextInputLayout
+
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/meal_add_energy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusedByDefault="true"
+                android:hint="@string/meal_add_energy"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorGrey"
+                android:textColorHint="@color/colorGrey" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- <EditText
+             android:id="@+id/meal_add_energy"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@color/colorAccent"
+             android:hint="@string/meal_add_energy"
+             android:inputType="number"
+             android:padding="10dp"
+             android:singleLine="true"
+             android:textSize="18sp"
+             android:textColor="@color/colorGrey"
+             android:textColorHint="@color/colorGrey" />
+ -->
+        <com.google.android.material.textfield.TextInputLayout
+
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/meal_add_carb"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusedByDefault="true"
+                android:hint="@string/meal_add_carb"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorGrey"
+                android:textColorHint="@color/colorGrey" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--  <EditText
+              android:id="@+id/meal_add_carb"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:background="@color/colorAccent"
+              android:hint="@string/meal_add_carb"
+              android:inputType="number"
+              android:padding="10dp"
+              android:singleLine="true"
+              android:textSize="18sp"
+              android:textColor="@color/colorGrey"
+              android:textColorHint="@color/colorGrey" />-->
+        <com.google.android.material.textfield.TextInputLayout
+
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/meal_add_protein"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusedByDefault="true"
+                android:hint="@string/meal_add_protein"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorGrey"
+                android:textColorHint="@color/colorGrey" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--<EditText
             android:id="@+id/meal_add_protein"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -126,29 +249,52 @@
             android:textColor="@color/colorGrey"
             android:textColorHint="@color/colorGrey" />
 
-        <EditText
-            android:id="@+id/meal_add_fat"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorAccent"
-            android:hint="@string/meal_add_fat"
-            android:inputType="number"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textSize="18sp"
-            android:textColor="@color/colorGrey"
-            android:textColorHint="@color/colorGrey" />
+-->
+        <com.google.android.material.textfield.TextInputLayout
 
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:id="@+id/meal_add_fat"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusedByDefault="true"
+                android:hint="@string/meal_add_fat"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorGrey"
+                android:textColorHint="@color/colorGrey" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- <EditText
+             android:id="@+id/meal_add_fat"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@color/colorAccent"
+             android:hint="@string/meal_add_fat"
+             android:inputType="number"
+             android:padding="10dp"
+             android:singleLine="true"
+             android:textSize="18sp"
+             android:textColor="@color/colorGrey"
+             android:textColorHint="@color/colorGrey" />
+ -->
         <Button
+            android:layout_marginTop="15dp"
             android:id="@+id/meal_add_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/biodata_add_button" />
 
 
-
     </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/searchMeal"
         android:layout_width="wrap_content"
