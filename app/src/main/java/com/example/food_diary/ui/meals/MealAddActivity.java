@@ -96,12 +96,12 @@ public class MealAddActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit meal");
             name_et.setText(intent.getStringExtra(EXTRA_NAME));
-            mass_et.setText(String.valueOf(intent.getIntExtra(EXTRA_MASS, 1)));
-            portions_et.setText(String.valueOf(intent.getIntExtra(EXTRA_PORTIONS, 1)));
+            mass_et.setText(String.valueOf(intent.getDoubleExtra(EXTRA_MASS, 1)));
+            portions_et.setText(String.valueOf(intent.getDoubleExtra(EXTRA_PORTIONS, 1)));
             energy_et.setText(String.valueOf(intent.getIntExtra(EXTRA_ENERGY, 1)));
-            carb_et.setText(String.valueOf(intent.getIntExtra(EXTRA_CARBS, 1)));
-            protein_et.setText(String.valueOf(intent.getIntExtra(EXTRA_PROTEIN, 1)));
-            fat_et.setText(String.valueOf(intent.getIntExtra(EXTRA_FAT, 1)));
+            carb_et.setText(String.valueOf(intent.getDoubleExtra(EXTRA_CARBS, 1)));
+            protein_et.setText(String.valueOf(intent.getDoubleExtra(EXTRA_PROTEIN, 1)));
+            fat_et.setText(String.valueOf(intent.getDoubleExtra(EXTRA_FAT, 1)));
 
         } else {
             setTitle("Add meal");
@@ -170,12 +170,12 @@ public class MealAddActivity extends AppCompatActivity {
 
         String name = name_et.getText().toString();
         String kind = String.valueOf(spinner.getSelectedItem());
-        int mass = Integer.valueOf(mass_et.getText().toString());
+        Double mass = Double.valueOf(mass_et.getText().toString());
         Double portions = Double.valueOf(portions_et.getText().toString());
         int energy = Integer.valueOf(energy_et.getText().toString());
         Double carb = Double.valueOf(carb_et.getText().toString());
-        Double fat = Double.valueOf(protein_et.getText().toString());
-        Double protein = Double.valueOf(fat_et.getText().toString());
+        Double fat = Double.valueOf(fat_et.getText().toString());
+        Double protein = Double.valueOf(protein_et.getText().toString());
 
 
         if (Integer.valueOf(energy) <= 0) {

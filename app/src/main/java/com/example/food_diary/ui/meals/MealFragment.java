@@ -403,32 +403,38 @@ public class MealFragment extends Fragment {
         proteins = 0;
         fat = 0;
         carbs = 0;
+        double portions = 0;
+
 
         for (int i = 0; i < breakfastList.size(); i++) {
-            energy += breakfastList.get(i).getEnergy();
-            proteins += breakfastList.get(i).getProtein();
-            fat += breakfastList.get(i).getFat();
-            carbs += breakfastList.get(i).getCarbs();
+            portions = breakfastList.get(i).getPortions();
+            energy += breakfastList.get(i).getEnergy() * portions;
+            proteins += breakfastList.get(i).getProtein() * portions;
+            fat += breakfastList.get(i).getFat() * portions;
+            carbs += breakfastList.get(i).getCarbs() * portions;
         }
         for (int i = 0; i < lunchList.size(); i++) {
-            energy += lunchList.get(i).getEnergy();
-            proteins += lunchList.get(i).getProtein();
-            fat += lunchList.get(i).getFat();
-            carbs += lunchList.get(i).getCarbs();
+            portions = lunchList.get(i).getPortions();
+            energy += lunchList.get(i).getEnergy() * portions;
+            proteins += lunchList.get(i).getProtein() * portions;
+            fat += lunchList.get(i).getFat() * portions;
+            carbs += lunchList.get(i).getCarbs() * portions;
         }
         for (int i = 0; i < dinnerList.size(); i++) {
-            energy += dinnerList.get(i).getEnergy();
-            proteins += dinnerList.get(i).getProtein();
-            fat += dinnerList.get(i).getFat();
-            carbs += dinnerList.get(i).getCarbs();
+            portions = dinnerList.get(i).getPortions();
+            energy += dinnerList.get(i).getEnergy() * portions;
+            proteins += dinnerList.get(i).getProtein() * portions;
+            fat += dinnerList.get(i).getFat() * portions;
+            carbs += dinnerList.get(i).getCarbs() * portions;
         }
         for (int i = 0; i < snacksList.size(); i++) {
-            energy += snacksList.get(i).getEnergy();
-            proteins += snacksList.get(i).getProtein();
-            fat += snacksList.get(i).getFat();
-            carbs += snacksList.get(i).getCarbs();
+            portions = snacksList.get(i).getPortions();
+            energy += snacksList.get(i).getEnergy() * portions;
+            proteins += snacksList.get(i).getProtein() * portions;
+            fat += snacksList.get(i).getFat() * portions;
+            carbs += snacksList.get(i).getCarbs() * portions;
         }
-        //..odpal ten pasek na tablecie tera XD
-        macros_tv.setText("   " + energy + " kcal     c: " + carbs + "g      p: " + proteins + "g      f: " + fat + "g");
+
+        macros_tv.setText("   " + energy + " kcal       c: " + carbs + "g       p: " + proteins + "g        f: " + fat + "g");
     }
 }
