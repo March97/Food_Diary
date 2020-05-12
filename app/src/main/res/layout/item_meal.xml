@@ -36,7 +36,7 @@
             android:textSize="20sp"
             android:layout_below="@id/meal_id_tv"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="50dp"
 
             />
         <TextView

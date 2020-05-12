@@ -53,9 +53,9 @@ public class MealFragment extends Fragment {
     private TextView macros_tv;
     String date;
     private int energy;
-    private int carbs;
-    private int proteins;
-    private int fat;
+    private double carbs;
+    private double proteins;
+    private double fat;
     private FirebaseAuth mAuth;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -429,6 +429,6 @@ public class MealFragment extends Fragment {
             carbs += snacksList.get(i).getCarbs();
         }
 
-        macros_tv.setText("   " + energy + " kcal       c: " + carbs + "g       p: " + proteins + "g        f: " + carbs + "g");
+        macros_tv.setText("   " + energy + " kcal       c: " + carbs + "g       p: " + proteins + "g        f: " + fat + "g");
     }
 }
